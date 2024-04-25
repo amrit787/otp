@@ -4,7 +4,7 @@ import path from 'path';
 import { validateOtp } from './lib/validate';
 import cors from 'cors';
 const app = express();
-const port = 4001;
+const port = process.env.PORT || 4000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
