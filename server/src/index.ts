@@ -1,11 +1,18 @@
 // src/index.ts
 import express from 'express';
+import path from 'path';
 import { validateOtp } from './lib/validate';
 import cors from 'cors';
 const app = express();
-const port = 4000;
+const port = 4001;
+
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(cors());
+
+// app.get('*', (req, res) => {
+//   res.sendFile('./public/index.html');
+// });
 app.post('/otp', (req, res) => {
   let otp = req.body?.otp as string | undefined;
 
