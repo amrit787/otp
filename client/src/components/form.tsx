@@ -23,7 +23,7 @@ const Form: React.FC<FormProps> = () => {
 
     try {
       setLoading(true);
-      await axios.post('http://localhost:4000/otp', { otp: otpdata });
+      await axios.post('/otp', { otp: otpdata });
       navigate('/success');
     } catch (error) {
       if (axios.isAxiosError(error)) {

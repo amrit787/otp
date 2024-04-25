@@ -1,5 +1,3 @@
-'use client';
-
 import { createContext, useRef, useState } from 'react';
 
 type OtpContextType = {
@@ -15,7 +13,7 @@ export const OtpIputContext = createContext<OtpContextType>({
   OTP: [],
   setOTP: () => {},
   maxLength: 0,
-  onComplete: () => {},
+  onComplete: () => {}
 });
 
 const OtpInputProvider: React.FC<{
