@@ -50,7 +50,8 @@ export const OtpInputSlot = ({
 
   const handlePaste: React.ClipboardEventHandler<HTMLInputElement> = (e) => {
     const clipboardData = e.clipboardData;
-    const text = clipboardData.getData('text');
+    let text = clipboardData.getData('text');
+    text = text.length > 6 ? text.slice(0, 6) : text;
 
     setOTP([...text.split('')]);
     onComplete(text);
