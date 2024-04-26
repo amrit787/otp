@@ -18,6 +18,11 @@ export const OtpInputSlot = ({
   );
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    // it means on paste
+    if (e.target.value.length > 2) {
+      return;
+    }
+
     const input = (
       e.target.value.length > 1
         ? e.target.value.split('').pop()
@@ -39,29 +44,34 @@ export const OtpInputSlot = ({
     if (input.length === 0 && index > 0) {
       inputRef.current[index - 1]?.focus();
     }
-    if (newPin.every((digit) => digit !== '')) {
-      onComplete(newPin.join(''));
-    }
+
+    onComplete(newPin.join(''));
   };
 
   const handlePaste: React.ClipboardEventHandler<HTMLInputElement> = (e) => {
     const clipboardData = e.clipboardData;
     const text = clipboardData.getData('text');
-    setOTP(text.split(''));
+
+    setOTP([...text.split('')]);
+    onComplete(text);
   };
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     const key = e.key;
-    const hasValue = OTP[index]?.length;
-    if (hasValue) {
-      return;
-    }
+    const newPin = [...OTP];
+
     if (key === 'Backspace' || key === 'Delete') {
+      console.log('inside this ..........');
+      const hasValue = OTP[index]?.length;
+      if (hasValue) {
+        return;
+      }
       e.preventDefault();
       if (index > 0) {
         inputRef.current[index - 1]?.focus();
-        OTP[index] = '';
-        setOTP(OTP);
+        newPin[index] = '';
+
+        setOTP(newPin);
       }
     }
   };
